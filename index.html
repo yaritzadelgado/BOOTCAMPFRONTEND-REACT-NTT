@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini market</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="My Market Logo" class="logo">
+            <h1> Minimarket </h1>
+        </div>
+        
+        <nav class="nav">
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">PRODUCTOS</a></li>
+                <li><a href="#">CONTACTO</a></li>
+            </ul>
+        </nav>
+        
+        <div class="login-container">
+            <button class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> INICIAR SESIÓN
+            </button>
+        </div>
+        
+        </div>
+        <div class="cart">
+            <a href="#">
+                <img src="carr.png" alt="Carrito de compras" class="cart-icon">
+                <span class="cart-count">0</span>
+
+            </a>
+        </div>
+        
+        
+    </header>
+
+
+
+    <!-- SEARCH BAR -->
+    <section class="search-bar">
+        <input type="text" placeholder="Buscar productos..." aria-label="Buscar productos">
+        
+        <select aria-label="Seleccionar categoría">
+            <option value="all"> Nuestras categorías</option>
+            <option value="dairy">Lácteos</option>
+            <option value="seafood">Mariscos</option>
+            <option value="vegetables">Vegetales</option>
+            <option value="fruits">Frutas y Verduras</option>
+            <option value="personalcare">Cuidado Personal</option>
+            <option value="groceries">Abarrotes</option>
+        </select>
+    </section>
+
+
+    <!-- SLIDER -->
+    <section class="slider">
+    <div class="slides">
+        <div class="slide">
+            <img src="banner.jpg" alt="Oferta Especial 1">
+        </div>
+        <div class="slide">
+            <img src="banner2.jpg" alt="Oferta Especial 2">
+        </div>
+        <div class="slide">
+            <img src="banner3.jpg" alt="Oferta Especial 3">
+        </div>
+    </div>
+
+    <!-- Controles del slider -->
+    <button class="prev" onclick="moveSlide(-1)" aria-label="Anterior">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)" aria-label="Siguiente">&#10095;</button>
+
+</section>
+
+    <!-- PRODUCTOS -->
+    <section class="products">
+        <div class="product-card">
+            <img src="imagen/lacteo.jpg" alt="lacteo" class="product-image">
+            <h2>Leche</h2>
+            <p>La leche es una secreción nutritiva incluidos los monotremas​​.</p>
+            <p><strong>Categoría:</strong> Lácteos</p>
+            <p><strong>Precio:</strong> S/ 6.80 </p>
+            <button class="btn">Agregar al carrito</button>
+        </div>
+
+        <div class="product-card">
+            <img src="imagen/marisco.jpg" alt="marisco" class="product-image">
+            <h2>Camarones</h2>
+            <p>Son relativamente fáciles de encontrar en todo el mundo.</p>
+            <p><strong>Categoría:</strong> Mariscos</p>
+            <p><strong>Precio:</strong> S/ 40.00</p>
+            <button class="btn">Agregar al carrito</button>
+        </div>
+
+        <div class="product-card">
+            <img src="imagen/vegetales.jpg" alt="vegetales" class="product-image">
+            <h2> Broccoli</h2>
+            <p>De su contenido mineral sobresale el potasio y el hierro.</p>
+            <p><strong>Categoría:</strong> Vegetales</p>
+            <p><strong>Precio:</strong> S/ 4.50</p>
+            <button class="btn">Agregar al carrito</button>
+        </div>
+    </section>
+    <section class="products">
+        <div class="product-card">
+            <img src="imagen/fresa.jpg" alt="fruits" class="product-image">
+            <h2> Fresa</h2>
+            <p>De su contenido mineral sobresale el potasio y el hierro.</p>
+            <p><strong>Categoría:</strong> Frutas y Verduras </p>
+            <p><strong>Precio:</strong> S/ 15.50</p>
+            <button class="btn">Agregar al carrito</button>
+        </div>
+
+        <div class="product-card">
+            <img src="imagen/jabonavena.jpg" alt="cuidado personal" class="product-image">
+            <h2> Jabon Avena </h2>
+            <p>De su contenido mineral sobresale el potasio y el hierro.</p>
+            <p><strong>Categoría:</strong> Cuidado Personal</p>
+            <p><strong>Precio:</strong> S/ 5.40</p>
+            <button class="btn">Agregar al carrito</button>
+        </div>
+
+        <div class="product-card">
+            <img src="imagen/agua.png" alt="aborrotes" class="product-image">
+            <h2> Agua Mineral</h2>
+            <p>De su contenido mineral sobresale el potasio y el hierro.</p>
+            <p><strong>Categoría:</strong> Abarrotes</p>
+            <p><strong>Precio:</strong> S/ 10.00</p>
+            <button class="btn">Agregar al carrito</button>
+        
+        </div>
+    </section>
+   
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>Síguenos en nuestras redes sociales:</p>
+        <div class="social-media">
+            <a href="#"><img src="redessociales/fb.png" alt="Facebook"></a>
+            <a href="#"><img src="redessociales/ig.jpg" alt="Instagram"></a>
+            <a href="#"><img src="redessociales/whatsapp.png" alt="Whatsapp"></a>
+        </div>
+        <p>&copy; 2024 Minimarket. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
