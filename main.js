@@ -1,3 +1,5 @@
+// hay que separar la logica de consumo de servicio e insercion en vistas en diferentes archivos, la ideal del main es que solo invoque a las funciones finales y sea lo m'as sencillo de leer al tener mucho c'odigo se complica la lectura y el mantenimiento
+
 // Función para obtener productos desde la API
 async function fetchProducts() {
   try {
