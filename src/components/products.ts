@@ -27,6 +27,7 @@ export function displayProducts(products: Product[]): void {
     description.textContent = product.description;
 
     const price = document.createElement('p');
+
     price.innerHTML = `<strong>Precio:</strong> S/ ${product.price}`;
 
     const button = document.createElement('button');
