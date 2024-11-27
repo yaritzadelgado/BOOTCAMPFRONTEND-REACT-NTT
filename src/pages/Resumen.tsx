@@ -1,3 +1,4 @@
+// si pongo espacios en blanco en el formulario registra la solicitud 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { Product } from '../types/Product';
@@ -56,6 +57,8 @@ export const Resumen: React.FC = () => {
   const navigate = useNavigate(); 
   const [productosEnCarrito, setProductosEnCarrito] = useState<Product[]>(productos);
   const { distritos, loading } = useDistritos();
+
+  // hay que tipar el state para solo permitir las keys necesarias y no dejarlo libre
   const [formData, setFormData] = useState({
     nombres: '',
     apellidos: '',
@@ -65,6 +68,7 @@ export const Resumen: React.FC = () => {
     celular: '',
   });
 
+  // uniformizar el idioma, mantener ingl'es o espa;ol
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [compraExitosa, setCompraExitosa] = useState(false);
 
@@ -112,6 +116,7 @@ export const Resumen: React.FC = () => {
   // Función para validar el formulario
   const validateForm = () => {
     let errors: FormErrors = {};
+    // el regex deber'ia estar en otro archivo para reutilizarlo en otros casos
     if (!formData.nombres || /\d/.test(formData.nombres)) {
       errors.nombres = 'Debe ingresar un valor válido';
     }
@@ -127,6 +132,7 @@ export const Resumen: React.FC = () => {
     if (!formData.referencia) {
       errors.referencia = 'Campo obligatorio';
     }
+    // el regex deber'ia estar en otro archivo para reutilizarlo en otros casos
     if (!formData.celular || !/^\d{9}$/.test(formData.celular)) {
       errors.celular = 'Debe ingresar un número de celular válido';
     }
@@ -166,6 +172,7 @@ export const Resumen: React.FC = () => {
     navigate('/');
   };
 
+  // no usemos inline style creemos uan clase 
   return (
     <div style={{ padding: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f4f4f9' }}>
       <div style={{ maxWidth: '800px', width: '100%', padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>

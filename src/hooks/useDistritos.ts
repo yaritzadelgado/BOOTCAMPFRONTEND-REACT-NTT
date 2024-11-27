@@ -12,6 +12,7 @@ export const useDistritos = () => {
   useEffect(() => {
     setLoading(true);
     
+    // no debe ser estatico debe venir de un json
     setTimeout(() => {
       const distritosData = [
         { id: 1, nombre: 'VillaMaria' },

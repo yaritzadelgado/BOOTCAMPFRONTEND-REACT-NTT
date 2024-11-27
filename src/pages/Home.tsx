@@ -13,6 +13,7 @@ export const Home: React.FC<HomeProps> = ({ onAddToCart }) => {
   const { products, loading, error } = useFetchProducts();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  // qu'e es all? usemos constantes para definir valores fijos
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export const Home: React.FC<HomeProps> = ({ onAddToCart }) => {
       );
     }
 
+    // igual aqu'i
     if (selectedCategory !== 'all') {
       filtered = filtered.filter((product) => product.category === selectedCategory);
     }
