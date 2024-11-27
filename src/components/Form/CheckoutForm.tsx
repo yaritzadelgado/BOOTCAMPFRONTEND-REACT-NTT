@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { useDistritos } from '../../hooks/useDistritos'; 
 
 const CheckoutForm: React.FC = () => {
+  // uniformizar idioma
   const { distritos, loading } = useDistritos(); 
+  // hay que tipar el objeto para que solo admita las keys necesarias
   const [formData, setFormData] = useState({
     nombres: '',
     apellidos: '',

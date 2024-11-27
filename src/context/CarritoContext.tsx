@@ -30,6 +30,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     case "ADD_PRODUCT":
       const existingProduct = state.products.find(p => p.id === action.payload.id);
       if (existingProduct) {
+        // no usemos abreviaciones usemos el nombre completo
         return {
           ...state,
           products: state.products.map(p =>
@@ -47,6 +48,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         };
       }
     case "REMOVE_PRODUCT":
+      // no usemos abreviaciones usemos el nombre completo
       const productToRemove = state.products.find(p => p.id === action.payload);
       return {
         ...state,
@@ -54,6 +56,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         total: state.total - (productToRemove?.price || 0) * (productToRemove?.quantity || 0),
       };
     case "UPDATE_QUANTITY":
+      // no usemos abreviaciones usemos el nombre completo
       return {
         ...state,
         products: state.products.map(p =>
@@ -61,6 +64,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
             ? { ...p, quantity: action.payload.quantity }
             : p
         ),
+        // no usemos abreviaciones usemos el nombre completo
         total: state.products.reduce(
           (sum, p) =>
             sum + (p.id === action.payload.id ? action.payload.quantity * p.price : p.quantity * p.price),
@@ -82,17 +86,16 @@ const CartContext = createContext<{
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  
   const addToCart = (product: Product) => {
     dispatch({ type: "ADD_PRODUCT", payload: product });
   };
 
+    // si bien el provider podemos exponer lo que necesitemos hay que delegarle una 'unica responsabilidad en este caso puede mantenerse solo exportando el state y el dispatch y que sea el consumidor que implemente el addToCart o en todo caso crearlo en un archivo aparte y que lo importe cuando sea necesario
   return (
     <CartContext.Provider value={{ state, dispatch, addToCart }}>
       {children}
     </CartContext.Provider>
   );
 };
-
 
 export const useCart = () => useContext(CartContext);
