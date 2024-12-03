@@ -1,54 +1,70 @@
-// src/components/Header.test.tsx
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import '@testing-library/jest-dom';
 import { Header } from './Header';
-import { BrowserRouter as Router } from 'react-router-dom'; 
 
-describe('Header', () => {
-  const cartCount = 5;
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}));
 
-  test('debe renderizar el logo, el título y los enlaces de navegación', () => {
-    render(
-      <Router>
-        <Header cartCount={cartCount} />
-      </Router>
-    );
-
-    
-    const logo = screen.getByAltText('My Market Logo');
-    expect(logo).toBeInTheDocument();
-
-    
-    const title = screen.getByText('Minimarket');
-    expect(title).toBeInTheDocument();
-
-    
-    const homeLink = screen.getByText('HOME');
-    const resumenLink = screen.getByText('RESUMEN');
-    expect(homeLink).toBeInTheDocument();
-    expect(resumenLink).toBeInTheDocument();
+describe('Header Component', () => {
+  afterEach(() => {
+    localStorage.clear();
+    jest.clearAllMocks();
   });
 
-  test('debe mostrar el botón de iniciar sesión', () => {
+  test('renders correctly with username and cart count', () => {
     render(
       <Router>
-        <Header cartCount={cartCount} />
+        <Header cartCount={5} username="TestUser" />
       </Router>
     );
 
-    
-    const loginButton = screen.getByText('INICIAR SESIÓN');
-    expect(loginButton).toBeInTheDocument();
+    expect(screen.getByText(/Bienvenido: TestUser/i)).toBeInTheDocument();
+    expect(screen.getByText(/HOME/i)).toBeInTheDocument();
+    expect(screen.getByText(/RESUMEN/i)).toBeInTheDocument();
+    expect(screen.getByText('5')).toBeInTheDocument(); 
   });
 
-  test('debe mostrar el número de productos en el carrito', () => {
+  test('renders login button when no username is provided', () => {
     render(
       <Router>
-        <Header cartCount={cartCount} />
+        <Header cartCount={0} username={null} />
       </Router>
     );
 
-    
-    const cartCountElement = screen.getByText(cartCount.toString());
-    expect(cartCountElement).toBeInTheDocument();
+    expect(screen.getByText(/INICIAR SESIÓN/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Bienvenido:/i)).not.toBeInTheDocument();
+  });
+
+  test('redirects to login and clears localStorage on logout', () => {
+    localStorage.setItem('accessToken', 'mockToken');
+    localStorage.setItem('username', 'TestUser');
+
+    render(
+      <Router>
+        <Header cartCount={5} username="TestUser" />
+      </Router>
+    );
+
+    const logoutLink = screen.getByText(/Cerrar sesión/i);
+    fireEvent.click(logoutLink);
+
+    expect(localStorage.getItem('accessToken')).toBeNull();
+    expect(localStorage.getItem('username')).toBeNull();
+    expect(mockNavigate).toHaveBeenCalledWith('/login');
+  });
+
+  test('renders the cart with the correct count', () => {
+    render(
+      <Router>
+        <Header cartCount={3} username="TestUser" />
+      </Router>
+    );
+
+    expect(screen.getByText('3')).toBeInTheDocument();
+    expect(screen.getByAltText(/Carrito de compras/i)).toBeInTheDocument();
   });
 });

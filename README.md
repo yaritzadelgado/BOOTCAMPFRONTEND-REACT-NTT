@@ -1,147 +1,46 @@
-**Testing con Jest y Testing Library**
+# Proyecto Integrador
+## Descripción
 
-Este proyecto ha sido desarrollado utilizando Jest y Testing Library para garantizar la calidad y el correcto funcionamiento de cada funcionalidad, componente, hook y página.
+Este proyecto implementa una solución de autenticación utilizando React. La pantalla de login valida los campos de formulario, permite la recuperación de contraseña mediante un modal, y maneja el estado de autenticación a través de `localStorage` y `context`. Además, cuenta con pruebas unitarias para las funcionalidades implementadas.
 
-📝**Requisitos**
+## Funcionalidades
 
-Para ejecutar los tests en este proyecto, necesitarás tener instalados los siguientes paquetes:
+1. **Pantalla de Login**
+   - El formulario de login incluye dos campos: **usuario** y **contraseña**.
+   - Se validan ambos campos antes de enviar el formulario. Si algún campo está vacío, se muestra un mensaje de error debajo de cada input.
+   - En caso de que los datos sean correctos, se realiza una autenticación utilizando la API de **dummyjson**.
 
-**Jest:** Framework de testing para JavaScript.
+2. **Recuperación de Contraseña**
+   - En la parte inferior de la pantalla de login hay un enlace "Olvidé Contraseña" que abre un modal.
+   - El modal solicita el correo electrónico del usuario y valida que el formato sea correcto.
+   - Al hacer clic en "Enviar", se muestra una alerta personalizada utilizando SweetAlert (o una librería similar), indicando que la información fue enviada al correo.
 
-**React Testing Library:** Herramienta para realizar pruebas en componentes de React.
+3. **Menú de Navegación**
+   - En la parte superior de la pantalla se muestra el mensaje "Bienvenido: [NOMBRE DE USUARIO]" durante la interacción con las pantallas de inicio y resumen.
+   - También se incluye un enlace de **Cerrar sesión** que:
+     - Elimina los datos de autenticación guardados en `localStorage` y limpia el contexto.
+     - Redirige al usuario a la pantalla de login.
 
-    @testing-library/jest-dom
+4. **Rutas**
+   - Se utiliza **React Router DOM** para la gestión de rutas.
+   - Las rutas principales son:
+     - `/login` - Pantalla de inicio de sesión.
+     - `/home` - Pantalla de bienvenida.
+     - `/resumen` - Pantalla de resumen.
 
-📝**Instalación**
+5. **Responsividad**
+- El diseño de la interfaz es completamente **responsive**, adaptándose correctamente a diferentes tamaños de pantalla.
 
-**Clona el repositorio a tu máquina local:**
+6. **Pruebas Unitarias**
+- Se agregan pruebas unitarias para las funcionalidades de validación de formulario, autenticación y recuperación de contraseña.
 
-     bash
+## Tecnologías Utilizadas
 
-    Copiar código
-
-    git clone <URL del repositorio>
-
-**Navega a la carpeta del proyecto:**
-
-     bash
-
-    Copiar código
-
-    cd <nombre del proyecto>
-
-✒️**Instala las dependencias:**
-
-     bash
-     Copiar código
-     npm install
-
-✒️**Estructura de los Tests**
-
-La estructura de los tests debe seguir el siguiente patrón:
-
-**1. Tests de Componentes:** 
-Cada componente debe tener su archivo de test dentro de la misma carpeta. El archivo debe seguir la convención ComponentName.test.tsx.
-
-**2. Tests de Hooks:** Los hooks se deben testear de manera aislada. Los tests de hooks deben estar en archivos con el formato use<HookName>.test.ts.
-
-**3. Tests de Páginas:** Las pruebas de las páginas deben incluirse en la carpeta correspondiente dentro de src/pages. Los archivos de test deben seguir la convención PageName.test.tsx.
-
-**📝 Convenciones de Nombres**
-
-Es importante que los nombres de los archivos de test sigan una convención consistente, ya que se evaluará la correcta definición de los mismos. A continuación, algunos ejemplos:
-
-**Componente:** Button.test.tsx
-
-**Hook:** useFetchData.test.ts
-
-**Página:** HomePage.test.tsx
-
-
-🔓**Testing de Componentes:**
-
-- Utiliza render de React Testing Library para montar el componente.
-- Usa screen para seleccionar elementos del DOM.
-
-- Realiza aserciones utilizando jest-dom.
-
-**Ejemplo de un test de un componente Button:**
-
-    tsx
-    Copiar código
-    import { render, screen } from '@testing-library/react';
-    import Button from './Button';
-
-    test('muestra el texto del botón correctamente', () => {
-    render(<Button text="Hacer clic" />);
-    const buttonElement = screen.getByText(/Hacer clic/i);
-    expect(buttonElement).toBeInTheDocument();
-    });
-
-🔓**Testing de Hooks:**
-
-Usa renderHook para probar hooks.
-Realiza aserciones sobre el estado o los efectos del hook.
-
-Ejemplo de un test para el hook useFetchData:
-
-    tsx
-    Copiar código
-    import { renderHook } from '@testing-library/react-hooks';
-    import useFetchData from './useFetchData';
-
-    test('debería retornar datos al hacer fetch', async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>        useFetchData('https://api.com/data'));
-    await waitForNextUpdate();
-    expect(result.current.data).toBeDefined();
-    });
-
-🔓**Testing de Páginas:**
-
-Similar al testing de componentes, pero asegurándote de que la página completa se renderice correctamente.
-
-Ejemplo de test para la página HomePage:
-
-    tsx
-    Copiar código
-    import { render, screen } from '@testing-library/react';
-    import HomePage from './HomePage';
-
-    test('debería mostrar el título de la página', () => {
-    render(<HomePage />);
-    const titleElement = screen.getByText(/Bienvenido a la página de inicio/i);
-    expect(titleElement).toBeInTheDocument();
-    });
-
-**Correr los Tests**
-
-Para ejecutar los tests, puedes usar el siguiente comando:
-
-    bash
-    Copiar código
-    npm test
-    Esto ejecutará todos los tests y generará un informe de los resultados.
-
-**Ejecutar solo un test específico**
-
-Si solo deseas ejecutar un test específico, puedes usar el comando:
-
-    bash
-    Copiar código
-    npm test -- -t 'nombre_del_test'
-    Donde 'nombre_del_test' es el nombre o patrón del test que deseas ejecutar.
-
-📝**Buenas Prácticas**
-
-- **Cobertura de Tests:** Asegúrate de que todos los componentes, hooks y páginas estén correctamente testeados. Se evaluará la cobertura de los tests.
-
-- **Nombres Descriptivos:** Los nombres de los tests deben ser claros y describir lo que están probando. Utiliza nombres descriptivos para las funciones de los tests y las aserciones.
-
-
-📝**Conclusión**
-
-Este enfoque de testing proporciona una cobertura completa de la funcionalidad del proyecto. El objetivo es garantizar que cada parte del código esté bien probada y funcione correctamente, siguiendo buenas prácticas de desarrollo y pruebas.
-
+- **React**: Librería para la construcción de interfaces de usuario.
+- **React Router DOM**: Gestión de rutas en React.
+- **SweetAlert** (o librería similar): Para mostrar alertas personalizadas.
+- **React Hook Form** / **Formik** (opcional): Para la gestión de formularios y validación.
+- **Jest** y **React Testing Library**: Para pruebas unitarias.
 
 
 

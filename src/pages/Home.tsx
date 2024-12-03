@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import useFetchProducts from '../hooks/useFetchProducts';
+import usePagination from '../hooks/usePagination'; 
 import { ProductCard } from '../components/ProductCard';
 import { SearchBar } from '../components/SearchBar';
 import Slider from '../components/Slider';
 import { Product } from '../types/Product';
 
 interface HomeProps {
-  onAddToCart: () => void; 
+  onAddToCart: () => void;
 }
 
 export const Home: React.FC<HomeProps> = ({ onAddToCart }) => {
@@ -15,6 +16,19 @@ export const Home: React.FC<HomeProps> = ({ onAddToCart }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
+  
+  const itemsPerPage = 6;
+
+  
+  const {
+    currentPageItems,
+    currentPage,
+    totalPages,
+    goToNextPage,
+    goToPreviousPage,
+  } = usePagination(filteredProducts, itemsPerPage);
+
+  
   useEffect(() => {
     let filtered = products;
 
@@ -47,19 +61,48 @@ export const Home: React.FC<HomeProps> = ({ onAddToCart }) => {
       <SearchBar onSearch={handleSearch} onCategoryChange={handleCategoryChange} />
       <Slider />
       <section className="products">
-        {filteredProducts.map((product) => (
+        {currentPageItems.map((product) => (
           <ProductCard
             key={product.id}
             title={product.title}
             description={product.description}
             price={product.price}
             thumbnail={product.thumbnail}
-            onAddToCart={onAddToCart} 
+            onAddToCart={onAddToCart}
           />
         ))}
       </section>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
+        <button
+          onClick={goToPreviousPage}
+          disabled={currentPage === 1}
+          style={{
+            padding: '10px 20px',
+            margin: '0 10px',
+            backgroundColor: '#f8f9fa',
+            border: '1px solid #ddd',
+            cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+          }}
+        >
+          Anterior
+        </button>
+        <span style={{ padding: '10px', fontWeight: 'bold' }}>
+          Página {currentPage} de {totalPages}
+        </span>
+        <button
+          onClick={goToNextPage}
+          disabled={currentPage === totalPages}
+          style={{
+            padding: '10px 20px',
+            margin: '0 10px',
+            backgroundColor: '#f8f9fa',
+            border: '1px solid #ddd',
+            cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+          }}
+        >
+          Siguiente
+        </button>
+      </div>
     </main>
   );
 };
-
-
