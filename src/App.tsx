@@ -26,6 +26,7 @@ const App: React.FC = () => {
     <Router>
       <Header cartCount={cartCount} username={username} />
       <Routes>
+        {/* // la pagina de inicio debe ser protegida seg'un los criterios compartidos */}
         <Route path="/" element={<Home onAddToCart={handleAddToCart} />} />
         <Route path="/resumen" element={<Resumen />} />
         <Route path="/login" element={<Login />} />
