@@ -1,3 +1,4 @@
+// falta test
 // src/components/Form/CheckoutForm.tsx
 import React, { useState } from 'react';
 import { useDistritos } from '../../hooks/useDistritos'; 
