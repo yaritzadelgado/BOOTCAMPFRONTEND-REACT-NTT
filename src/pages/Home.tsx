@@ -1,3 +1,4 @@
+// cuando se hace click en el carrito estando logueado no redirecciona a ning'un lado
 import React, { useState, useEffect } from 'react';
 import useFetchProducts from '../hooks/useFetchProducts';
 import usePagination from '../hooks/usePagination'; 
